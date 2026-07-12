@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Muse Public API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Search job openings.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themuse.com/api/public/jobs?page=1",
+            "params": [
+              { "name": "page", "value": "1", "type": "query", "description": "Page number of results (required)." },
+              { "name": "category", "value": "", "type": "query", "description": "Filter by job category, e.g. Data Science." },
+              { "name": "level", "value": "", "type": "query", "description": "Filter by experience level, e.g. Senior Level." },
+              { "name": "company", "value": "", "type": "query", "description": "Filter by company short name." },
+              { "name": "location", "value": "", "type": "query", "description": "Filter by location, e.g. New York, NY." },
+              { "name": "descending", "value": "false", "type": "query", "description": "Sort descending when true." },
+              { "name": "api_key", "value": "", "type": "query", "description": "Optional API key to raise the rate limit." }
+            ]
+          },
+          "docs": "Returns a paginated list of job openings, filterable by category, level, company, and location. Up to 20 results per page."
+        },
+        {
+          "info": { "name": "Retrieve a single job.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themuse.com/api/public/jobs/:id",
+            "params": [
+              { "name": "id", "value": "", "type": "path", "description": "The numeric ID of the job." },
+              { "name": "api_key", "value": "", "type": "query", "description": "Optional API key to raise the rate limit." }
+            ]
+          },
+          "docs": "Retrieves a single job opening by its numeric ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Search employer company profiles.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themuse.com/api/public/companies?page=1",
+            "params": [
+              { "name": "page", "value": "1", "type": "query", "description": "Page number of results (required)." },
+              { "name": "industry", "value": "", "type": "query", "description": "Filter by industry, e.g. Financial Services." },
+              { "name": "size", "value": "", "type": "query", "description": "Filter by company size: Small Size, Medium Size, or Large Size." },
+              { "name": "location", "value": "", "type": "query", "description": "Filter by location, e.g. Charlotte, NC." },
+              { "name": "descending", "value": "false", "type": "query", "description": "Sort descending when true." },
+              { "name": "api_key", "value": "", "type": "query", "description": "Optional API key to raise the rate limit." }
+            ]
+          },
+          "docs": "Returns a paginated list of employer company profiles, filterable by industry, size, and location. Up to 20 results per page."
+        },
+        {
+          "info": { "name": "Retrieve a single company.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themuse.com/api/public/companies/:id",
+            "params": [
+              { "name": "id", "value": "", "type": "path", "description": "The numeric ID of the company." },
+              { "name": "api_key", "value": "", "type": "query", "description": "Optional API key to raise the rate limit." }
+            ]
+          },
+          "docs": "Retrieves a single employer company profile by its numeric ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

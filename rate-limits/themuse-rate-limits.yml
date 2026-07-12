@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: The Muse
+providerId: themuse
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Job Openings
+- Jobs
+- Careers
+- Rate Limiting
+- Quotas
+description: >-
+  The Muse public API enforces a fixed hourly request limit that depends on
+  whether you send an api_key. Anonymous callers are limited to 500 requests per
+  hour; registered callers that pass an api_key query parameter get 3,600
+  requests per hour. Every response carries the current window state in the
+  X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset headers.
+  Exceeding the limit returns HTTP 403. List endpoints are additionally
+  paginated at 20 results per page.
+notes: >-
+  Limits and headers were confirmed live during review - an unauthenticated
+  request returned X-RateLimit-Limit 500 with X-RateLimit-Remaining and
+  X-RateLimit-Reset (seconds until reset) present. Register an application and
+  pass api_key to raise the ceiling to 3,600/hour. Contact api@themuse.com for
+  higher access.
+sources:
+- https://www.themuse.com/developers/api/v2
+responseCodes:
+  throttled: 403
+limits:
+- name: Anonymous Requests
+  scope: client
+  metric: requests
+  limit: 500 per hour
+  notes: Applies when no api_key query parameter is supplied.
+- name: Registered Requests
+  scope: application
+  metric: requests
+  limit: 3600 per hour
+  notes: Applies when a valid api_key query parameter is supplied.
+- name: Page Size
+  scope: request
+  metric: results
+  limit: 20 per page
+  notes: List endpoints return at most 20 results per page; iterate with the page parameter.
+headers:
+- name: X-RateLimit-Limit
+  description: Total requests allowed in the current window (500 anonymous, 3,600 registered).
+- name: X-RateLimit-Remaining
+  description: Requests remaining in the current window.
+- name: X-RateLimit-Reset
+  description: Seconds until the current rate-limit window resets.
+policies:
+- name: Register for Higher Limits
+  description: Registering an application and passing an api_key raises the hourly limit from 500 to 3,600.
+- name: Honor Reset Window
+  description: On a 403, read X-RateLimit-Reset and back off until the window resets before retrying.
+- name: Paginate Efficiently
+  description: Use the page parameter and 20-per-page results to page through large result sets rather than hammering a single endpoint.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

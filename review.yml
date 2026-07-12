@@ -1,0 +1,96 @@
+aid: themuse
+name: The Muse
+review:
+  question: Does The Muse expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. The Muse's public API (v2) is a
+    request/response REST API over HTTPS returning JSON. There is no
+    server-push transport (WebSocket or Server-Sent Events) on The Muse's
+    public API to model. Job and company data are retrieved by polling the
+    paginated GET /jobs and GET /companies endpoints; there is no real-time
+    streaming surface documented for public consumers.
+findings:
+  summary: |
+    The Muse does not publish a documented public WebSocket API. The Muse
+    exposes a free, documented public REST API (v2) for job openings and
+    employer company profiles. The base URL is
+    https://www.themuse.com/api/public (the legacy host
+    https://api-v2.themuse.com still resolves via redirect). All endpoints are
+    request/response REST over HTTPS and return JSON. Authentication is
+    optional: an api_key query parameter raises the hourly rate limit. No
+    WebSocket (ws:// or wss://) or other server-push endpoint is documented
+    anywhere in The Muse developer documentation as of the review date.
+  accessModel: |
+    The API is free to use. Without an API key, clients are limited to 500
+    requests per hour; registering an application and passing an api_key query
+    parameter raises the limit to 3,600 requests per hour. Higher or commercial
+    access is arranged by contacting The Muse (api@themuse.com). List endpoints
+    are paginated at 20 results per page and require a page parameter. Use
+    requires agreeing to the API terms at
+    https://www.themuse.com/developers/api/v2/terms.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://www.themuse.com/api/public
+      documented: true
+      note: Jobs and Companies endpoints. JSON request/response.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in The Muse public API.
+  endpointsConfirmedRest:
+    - GET https://www.themuse.com/api/public/jobs
+    - GET https://www.themuse.com/api/public/jobs/{id}
+    - GET https://www.themuse.com/api/public/companies
+    - GET https://www.themuse.com/api/public/companies/{id}
+  endpointsNotLive:
+    - path: GET https://www.themuse.com/api/public/posts
+      note: >-
+        Older references to a Posts endpoint exist, but the path returns HTTP
+        404 as of the review date and is not represented as a live API in this
+        catalog entry.
+    - path: GET https://www.themuse.com/api/public/coaches
+      note: Returns HTTP 500 as of the review date; not documented as a stable public endpoint.
+  verificationNotes: |
+    Endpoints were exercised live during the review. GET /jobs returned a
+    paginated payload with 410,526 total jobs across 20,527 pages, and each job
+    result carried name, contents, type, publication_date, short_name,
+    model_type, id, locations, categories, levels, tags, refs.landing_page, and
+    an embedded company (id, short_name, name). GET /companies returned 967
+    total companies across 49 pages, each with description, locations,
+    industries, tags, short_name, name, publication_date, model_type, twitter,
+    id, size, and refs. Rate-limit response headers X-RateLimit-Remaining,
+    X-RateLimit-Limit (observed value 500 unauthenticated), and
+    X-RateLimit-Reset were confirmed present.
+  jobOpeningsUseCase: |
+    This provider was added specifically to serve "job openings" / jobs /
+    careers / recruiting search intent. The Jobs API is a direct, free source
+    of live openings filterable by category, experience level, company, and
+    location, making it well suited for job boards, career sites, and
+    recruiting integrations.
+sources:
+  - url: https://www.themuse.com/developers/api/v2
+    type: Documentation
+    note: Public API v2 reference - authentication, rate limits, Jobs endpoint, status codes.
+  - url: https://www.themuse.com/developers/api/v2/terms
+    type: TermsOfService
+    note: API terms of use that must be agreed to before use.
+  - url: https://www.themuse.com/api/public/jobs
+    type: APIReference
+    note: Live Jobs list endpoint, confirmed 200 with paginated JSON.
+  - url: https://www.themuse.com/api/public/companies
+    type: APIReference
+    note: Live Companies list endpoint, confirmed 200 with paginated JSON.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. The Muse's public API is
+    request/response REST (Jobs and Companies) over HTTPS returning JSON, so no
+    AsyncAPI document was created. The apis.yml catalogs the two live REST APIs
+    (Jobs and Companies); the legacy Posts path is intentionally omitted because
+    it returns 404.

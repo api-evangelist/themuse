@@ -1,0 +1,95 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: The Muse
+providerId: themuse
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Job Openings
+- Jobs
+- Careers
+- Recruiting
+- Plans
+description: >-
+  The Muse public API is free to use. There is no paid self-serve tier
+  advertised in the developer documentation. Access is differentiated only by
+  whether you register an application and pass an api_key: anonymous callers get
+  a lower hourly rate limit, and registered callers get a higher one. Higher or
+  commercial-volume access is arranged directly with The Muse by contacting
+  api@themuse.com. Use of the API requires agreeing to the API terms of service.
+notes: >-
+  No published dollar pricing exists for the public API - the "plans" here are
+  the free anonymous and free registered access levels plus a
+  contact-to-arrange path for elevated access. Verify current limits and terms
+  on the developer documentation during reconciliation.
+sources:
+- https://www.themuse.com/developers/api/v2
+- https://www.themuse.com/developers/api/v2/terms
+plans:
+- id: themuse-anonymous
+  name: Anonymous (No API Key)
+  type: free
+  description: >-
+    Free access to the Jobs and Companies endpoints without registration,
+    capped at a lower hourly request limit. Suitable for evaluation and
+    low-volume use.
+  entries:
+  - label: Requests Per Hour
+    name: anonymous_requests
+    type: usage
+    metric: requests
+    limit: 500
+    timeFrame: hour
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: Jobs API
+  - name: Companies API
+- id: themuse-registered
+  name: Registered (API Key)
+  type: free
+  description: >-
+    Free access with a registered application and an api_key query parameter,
+    which raises the hourly request limit. Recommended for production use.
+  entries:
+  - label: Requests Per Hour
+    name: registered_requests
+    type: usage
+    metric: requests
+    limit: 3600
+    timeFrame: hour
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: Jobs API
+  - name: Companies API
+  - name: Higher Rate Limit
+- id: themuse-elevated
+  name: Elevated / Commercial Access
+  type: enterprise
+  description: >-
+    Higher-volume or commercial access arranged directly with The Muse by
+    contacting api@themuse.com. Terms and any fees are negotiated case by case.
+  entries:
+  - label: Custom Access
+    name: elevated_access
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact The Muse
+    userMultiplied: false
+  elements:
+  - name: Higher Rate Limits
+  - name: Commercial Terms
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

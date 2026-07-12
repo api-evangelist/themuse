@@ -1,0 +1,104 @@
+{
+  "info": {
+    "name": "The Muse Public API",
+    "description": "Free, documented public REST API (v2) for live job openings and employer company profiles. Base URL: https://www.themuse.com/api/public. Authentication is optional - passing an api_key query parameter raises the hourly rate limit from 500 to 3,600. List endpoints are paginated at 20 results per page and require a page parameter.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://www.themuse.com/api/public", "type": "string" },
+    { "key": "apiKey", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "Search job openings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/jobs?page=1&api_key={{apiKey}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs"],
+              "query": [
+                { "key": "page", "value": "1", "description": "Page number of results (required)." },
+                { "key": "category", "value": "", "disabled": true, "description": "Filter by job category, e.g. Data Science." },
+                { "key": "level", "value": "", "disabled": true, "description": "Filter by experience level, e.g. Senior Level." },
+                { "key": "company", "value": "", "disabled": true, "description": "Filter by company short name." },
+                { "key": "location", "value": "", "disabled": true, "description": "Filter by location, e.g. New York, NY." },
+                { "key": "descending", "value": "false", "disabled": true, "description": "Sort descending when true." },
+                { "key": "api_key", "value": "{{apiKey}}", "description": "Optional API key to raise the rate limit." }
+              ]
+            },
+            "description": "Returns a paginated list of job openings, filterable by category, level, company, and location. Up to 20 results per page."
+          }
+        },
+        {
+          "name": "Retrieve a single job",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/jobs/:id?api_key={{apiKey}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", ":id"],
+              "query": [
+                { "key": "api_key", "value": "{{apiKey}}", "description": "Optional API key to raise the rate limit." }
+              ],
+              "variable": [
+                { "key": "id", "value": "", "description": "The numeric ID of the job." }
+              ]
+            },
+            "description": "Retrieves a single job opening by its numeric ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Companies",
+      "item": [
+        {
+          "name": "Search employer company profiles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/companies?page=1&api_key={{apiKey}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["companies"],
+              "query": [
+                { "key": "page", "value": "1", "description": "Page number of results (required)." },
+                { "key": "industry", "value": "", "disabled": true, "description": "Filter by industry, e.g. Financial Services." },
+                { "key": "size", "value": "", "disabled": true, "description": "Filter by company size: Small Size, Medium Size, or Large Size." },
+                { "key": "location", "value": "", "disabled": true, "description": "Filter by location, e.g. Charlotte, NC." },
+                { "key": "descending", "value": "false", "disabled": true, "description": "Sort descending when true." },
+                { "key": "api_key", "value": "{{apiKey}}", "description": "Optional API key to raise the rate limit." }
+              ]
+            },
+            "description": "Returns a paginated list of employer company profiles, filterable by industry, size, and location. Up to 20 results per page."
+          }
+        },
+        {
+          "name": "Retrieve a single company",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/companies/:id?api_key={{apiKey}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["companies", ":id"],
+              "query": [
+                { "key": "api_key", "value": "{{apiKey}}", "description": "Optional API key to raise the rate limit." }
+              ],
+              "variable": [
+                { "key": "id", "value": "", "description": "The numeric ID of the company." }
+              ]
+            },
+            "description": "Retrieves a single employer company profile by its numeric ID."
+          }
+        }
+      ]
+    }
+  ]
+}
