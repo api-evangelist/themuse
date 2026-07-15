@@ -83,6 +83,8 @@ apis:
     industries, locations, size, tags, and links to its landing and jobs pages.
     Useful for employer-branding, company-research, and recruiting integrations.
 common:
+- type: AgenticAccess
+  url: agentic-access/themuse-agentic-access.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/the-muse
 - type: Website
