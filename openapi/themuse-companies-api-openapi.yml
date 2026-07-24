@@ -1,0 +1,249 @@
+openapi: 3.0.3
+info:
+  title: The Muse Public Companies API
+  description: 'The Muse public API (v2) exposes live job openings and employer company profiles over REST. All endpoints return JSON. Authentication is optional: passing an `api_key` query parameter raises the hourly rate limit from 500 (unauthenticated) to 3,600 (registered). List endpoints are paginated with 20 results per page and require a `page` query parameter. The current base URL is https://www.themuse.com/api/public; the legacy host https://api-v2.themuse.com still resolves via redirect. Use of the API requires agreement to the terms at https://www.themuse.com/developers/api/v2/terms.'
+  version: '2.0'
+  contact:
+    name: The Muse Developer Support
+    url: https://www.themuse.com/developers/api/v2
+    email: api@themuse.com
+  termsOfService: https://www.themuse.com/developers/api/v2/terms
+servers:
+- url: https://www.themuse.com/api/public
+  description: Current public API base URL
+- url: https://api-v2.themuse.com
+  description: Legacy base URL (redirects to the current host)
+security:
+- {}
+- apiKeyQuery: []
+tags:
+- name: Companies
+  description: Employer company profiles that back the job listings.
+paths:
+  /companies:
+    get:
+      operationId: listCompanies
+      tags:
+      - Companies
+      summary: Search employer company profiles
+      description: Returns a paginated list of employer company profiles. Supports filtering by industry, company size, and location. Returns up to 20 results per page.
+      parameters:
+      - name: page
+        in: query
+        required: true
+        description: Page number of results to return.
+        schema:
+          type: integer
+          default: 1
+      - name: descending
+        in: query
+        required: false
+        description: Sort results in descending order when true.
+        schema:
+          type: boolean
+          default: false
+      - name: industry
+        in: query
+        required: false
+        description: Filter by industry name, for example "Financial Services" or "Technology". Repeat the parameter to filter on multiple industries.
+        schema:
+          type: string
+      - name: size
+        in: query
+        required: false
+        description: Filter by company size. One of "Small Size", "Medium Size", or "Large Size".
+        schema:
+          type: string
+          enum:
+          - Small Size
+          - Medium Size
+          - Large Size
+      - name: location
+        in: query
+        required: false
+        description: Filter by location, for example "Charlotte, NC".
+        schema:
+          type: string
+      - $ref: '#/components/parameters/ApiKey'
+      responses:
+        '200':
+          description: A paginated list of company profiles.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompaniesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/RateLimited'
+  /companies/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: The numeric ID of the company.
+      schema:
+        type: integer
+    get:
+      operationId: getCompany
+      tags:
+      - Companies
+      summary: Retrieve a single company
+      description: Retrieves a single employer company profile by its numeric ID.
+      parameters:
+      - $ref: '#/components/parameters/ApiKey'
+      responses:
+        '200':
+          description: The requested company profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '403':
+          $ref: '#/components/responses/RateLimited'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    NamedValue:
+      type: object
+      description: A generic named reference (used for locations and industries).
+      properties:
+        name:
+          type: string
+    PagedResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+        page_count:
+          type: integer
+        items_per_page:
+          type: integer
+        total:
+          type: integer
+        took:
+          type: integer
+          description: Server-side query time in milliseconds.
+        timed_out:
+          type: boolean
+        aggregations:
+          type: array
+          items:
+            type: object
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+        short_name:
+          type: string
+    Company:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        short_name:
+          type: string
+        description:
+          type: string
+        model_type:
+          type: string
+          description: Always "companies" for this resource.
+        publication_date:
+          type: string
+          format: date-time
+        twitter:
+          type: string
+          nullable: true
+        size:
+          $ref: '#/components/schemas/CompanySize'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamedValue'
+        industries:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamedValue'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        refs:
+          $ref: '#/components/schemas/CompanyRefs'
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code echoed in the body.
+        error:
+          type: string
+          description: Human-readable error message.
+    CompanySize:
+      type: object
+      properties:
+        name:
+          type: string
+        short_name:
+          type: string
+    CompanyRefs:
+      type: object
+      properties:
+        landing_page:
+          type: string
+          format: uri
+        jobs_page:
+          type: string
+          format: uri
+        mini_f1_image:
+          type: string
+          format: uri
+        f2_image:
+          type: string
+          format: uri
+    CompaniesResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedResponse'
+      - type: object
+        properties:
+          results:
+            type: array
+            items:
+              $ref: '#/components/schemas/Company'
+  parameters:
+    ApiKey:
+      name: api_key
+      in: query
+      required: false
+      description: Optional API key that raises the hourly rate limit.
+      schema:
+        type: string
+  responses:
+    RateLimited:
+      description: The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or a parameter value was invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+      description: Optional API key passed as the `api_key` query parameter. Registering an application and supplying a key raises the hourly rate limit from 500 to 3,600 requests.
