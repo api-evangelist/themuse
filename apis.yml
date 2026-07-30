@@ -11,7 +11,19 @@ description: >-
   An optional api_key raises rate limits. This makes The Muse a strong source for
   "job openings", jobs, careers, and recruiting use cases and for building job
   boards, career sites, and employer-branding integrations.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Paid
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/themuse.png
 tags:
 - Job Openings
 - Jobs
@@ -26,62 +38,42 @@ created: '2026-07-11'
 modified: '2026-07-11'
 specificationVersion: '0.19'
 apis:
-- aid: themuse:themuse-jobs-api
-  name: The Muse Jobs API
-  tags:
-  - Job Openings
-  - Jobs
-  - Careers
-  - Job Search
-  - Recruiting
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.themuse.com/developers/api/v2
-  baseURL: https://www.themuse.com/api/public
-  properties:
-  - url: https://www.themuse.com/developers/api/v2
-    type: Documentation
-  - url: https://www.themuse.com/developers/api/v2
-    type: APIReference
-  - url: openapi/themuse-openapi.yml
-    type: OpenAPI
-  - url: collections/themuse.postman_collection.json
-    type: PostmanCollection
-  - url: collections/themuse.opencollection.json
-    type: OpenCollection
-  description: >-
-    Search and retrieve live job openings across hundreds of thousands of
-    listings. Filter by category (Data Science, Design, Engineering, Sales, and
-    20+ more), experience level (Entry Level, Mid Level, Senior Level,
-    Management, Internship), company, and location, with paginated results and
-    per-job company details. Retrieve a single job by its numeric ID. This is the
-    core surface for "job openings", job search, and careers use cases.
 - aid: themuse:themuse-companies-api
   name: The Muse Companies API
-  tags:
-  - Company Profiles
-  - Employers
-  - Employer Branding
-  - Recruiting
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Employer company profiles that back the job listings.
   humanURL: https://www.themuse.com/developers/api/v2
   baseURL: https://www.themuse.com/api/public
+  tags:
+  - Companies
   properties:
-  - url: https://www.themuse.com/developers/api/v2
-    type: Documentation
-  - url: https://www.themuse.com/developers/api/v2
-    type: APIReference
-  - url: openapi/themuse-openapi.yml
-    type: OpenAPI
-  - url: collections/themuse.postman_collection.json
-    type: PostmanCollection
-  - url: collections/themuse.opencollection.json
-    type: OpenCollection
-  description: >-
-    Browse and retrieve employer company profiles that back the job listings.
-    Filter by industry, company size, and location, with paginated results.
-    Retrieve a single company by its numeric ID to get its description,
-    industries, locations, size, tags, and links to its landing and jobs pages.
-    Useful for employer-branding, company-research, and recruiting integrations.
+  - type: OpenAPI
+    url: openapi/themuse-companies-api-openapi.yml
+  - type: Documentation
+    url: https://www.themuse.com/developers/api/v2
+  - type: APIReference
+    url: https://www.themuse.com/developers/api/v2
+  - type: PostmanCollection
+    url: collections/themuse.postman_collection.json
+  - type: OpenCollection
+    url: collections/themuse.opencollection.json
+- aid: themuse:themuse-jobs-api
+  name: The Muse Jobs API
+  description: Live job openings, searchable by category, level, company, and location.
+  humanURL: https://www.themuse.com/developers/api/v2
+  baseURL: https://www.themuse.com/api/public
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/themuse-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://www.themuse.com/developers/api/v2
+  - type: APIReference
+    url: https://www.themuse.com/developers/api/v2
+  - type: PostmanCollection
+    url: collections/themuse.postman_collection.json
+  - type: OpenCollection
+    url: collections/themuse.opencollection.json
 common:
 - type: AgenticAccess
   url: agentic-access/themuse-agentic-access.yml
