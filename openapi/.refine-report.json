@@ -1,0 +1,16 @@
+{
+  "provider": "themuse",
+  "sources": [
+    "themuse-companies-api-openapi.yml",
+    "themuse-jobs-api-openapi.yml"
+  ],
+  "outputs": [
+    "themuse-companies-api-openapi.yml",
+    "themuse-jobs-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
