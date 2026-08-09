@@ -2,15 +2,12 @@ aid: themuse
 url: https://raw.githubusercontent.com/api-evangelist/themuse/refs/heads/main/apis.yml
 name: The Muse
 kind: company
-description: >-
-  The Muse is a careers and company-profiles platform that helps people find
-  jobs at companies whose values match their own. Its free, documented public
-  REST API (v2) exposes hundreds of thousands of live job openings - searchable
-  by category, experience level, company, and location - alongside rich employer
-  company profiles (industry, size, locations, and behind-the-scenes content).
-  An optional api_key raises rate limits. This makes The Muse a strong source for
-  "job openings", jobs, careers, and recruiting use cases and for building job
-  boards, career sites, and employer-branding integrations.
+description: The Muse is a careers and company-profiles platform that helps people find jobs at companies
+  whose values match their own. Its free, documented public REST API (v2) exposes hundreds of thousands
+  of live job openings - searchable by category, experience level, company, and location - alongside rich
+  employer company profiles (industry, size, locations, and behind-the-scenes content). An optional api_key
+  raises rate limits. This makes The Muse a strong source for "job openings", jobs, careers, and recruiting
+  use cases and for building job boards, career sites, and employer-branding integrations.
 accessModel:
   pricing: paid
   onboarding: unknown
@@ -35,7 +32,7 @@ tags:
 - Hiring
 - HR Tech
 created: '2026-07-11'
-modified: '2026-07-11'
+modified: '2026-08-08'
 specificationVersion: '0.19'
 apis:
 - aid: themuse:themuse-companies-api
@@ -89,6 +86,12 @@ common:
   url: rate-limits/themuse-rate-limits.yml
 - type: FinOps
   url: finops/themuse-finops.yml
+- type: DomainSecurity
+  url: security/themuse-domain-security.yml
+- type: PublicAPIsListing
+  url: https://github.com/public-apis/public-apis
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-merged-from:
+- the-muse
