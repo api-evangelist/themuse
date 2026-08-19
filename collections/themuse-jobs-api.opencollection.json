@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Muse Public Companies Jobs API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search job openings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themuse.com/api/public/jobs",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of results to return (0-indexed pagination cursor)."
+              },
+              {
+                "name": "descending",
+                "value": "",
+                "type": "query",
+                "description": "Sort results in descending order when true."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter by job category, for example \"Data Science\", \"Design\", \"Software Engineering\", \"Sales\", or \"Accounting\". Repeat the parameter to filter on multiple categories."
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Filter by experience level. One of \"Entry Level\", \"Mid Level\", \"Senior Level\", \"Management\", or \"Internship\". Repeat the parameter to filter on multiple levels."
+              },
+              {
+                "name": "company",
+                "value": "",
+                "type": "query",
+                "description": "Filter by company short name (for example \"hartfordhealthcare\"). Repeat the parameter to filter on multiple companies."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Filter by location, for example \"New York, NY\" or \"Flexible / Remote\". Repeat the parameter to filter on multiple locations."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Optional API key that raises the hourly rate limit."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of job openings intelligently sorted by factors such as trendiness, uniqueness, and newness. Supports filtering by category, experience level, company, and location. Multiple values may be supplied for `category`, `level`, `company`, and `location` by repeating the query parameter. Returns up to 20 results per page."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themuse.com/api/public/jobs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The numeric ID of the job."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Optional API key that raises the hourly rate limit."
+              }
+            ]
+          },
+          "docs": "Retrieves a single job opening by its numeric ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

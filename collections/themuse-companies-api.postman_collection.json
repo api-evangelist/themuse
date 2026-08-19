@@ -1,0 +1,485 @@
+{
+  "item": [
+    {
+      "id": "21d17006-14a3-48dc-822f-a6148f6d02e5",
+      "name": "Companies",
+      "description": {
+        "content": "Employer company profiles that back the job listings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1ceb7f8e-93a6-47a4-82a9-ee3ab634264d",
+          "name": "Search employer company profiles",
+          "request": {
+            "name": "Search employer company profiles",
+            "description": {
+              "content": "Returns a paginated list of employer company profiles. Supports filtering by industry, company size, and location. Returns up to 20 results per page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "(Required) Page number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "descending",
+                  "value": "false",
+                  "description": "Sort results in descending order when true."
+                },
+                {
+                  "disabled": false,
+                  "key": "industry",
+                  "value": "<string>",
+                  "description": "Filter by industry name, for example \"Financial Services\" or \"Technology\". Repeat the parameter to filter on multiple industries."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<string>",
+                  "description": "Filter by company size. One of \"Small Size\", \"Medium Size\", or \"Large Size\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "Filter by location, for example \"Charlotte, NC\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "Optional API key that raises the hourly rate limit."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "36ad2900-cce2-4d66-94f8-d3e0b5579dae",
+              "name": "A paginated list of company profiles.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "descending",
+                      "value": "false"
+                    },
+                    {
+                      "key": "industry",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": 907,\n  \"page_count\": 4319,\n  \"items_per_page\": 3131,\n  \"total\": 9748,\n  \"took\": 933,\n  \"timed_out\": true,\n  \"results\": [\n    {\n      \"id\": 4816,\n      \"name\": \"string\",\n      \"short_name\": \"string\",\n      \"description\": \"string\",\n      \"model_type\": \"string\",\n      \"publication_date\": \"1964-03-27T23:56:04.041Z\",\n      \"twitter\": \"string\",\n      \"size\": {\n        \"name\": \"string\",\n        \"short_name\": \"string\"\n      },\n      \"locations\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"industries\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"name\": \"string\",\n          \"short_name\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"short_name\": \"string\"\n        }\n      ],\n      \"refs\": {\n        \"landing_page\": \"https://eiOaltEFvkethXDKkfyrHgkBguwDh.cniJzByK1QAsmbNcswn6xVSqNRUu8dHLwlRcfY7qRpMgf6GJjPN-MjdfOxYXV1bMIpli\",\n        \"jobs_page\": \"https://ObFHCkpLwHiNNyjjINplBo.tuOrXAsg7DByow5mptfDhqqYe6P\",\n        \"mini_f1_image\": \"https://o.djT.JY3A0eI,nroEU7mhlXiEJZ-UnsGq,ObNMXuS6hlhupnmdSHjCfXTfFpq\",\n        \"f2_image\": \"http://UcLznBKsOUZPMl.uoyzgBt-Z\"\n      }\n    },\n    {\n      \"id\": 3277,\n      \"name\": \"string\",\n      \"short_name\": \"string\",\n      \"description\": \"string\",\n      \"model_type\": \"string\",\n      \"publication_date\": \"1950-01-29T14:27:45.578Z\",\n      \"twitter\": \"string\",\n      \"size\": {\n        \"name\": \"string\",\n        \"short_name\": \"string\"\n      },\n      \"locations\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"industries\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"name\": \"string\",\n          \"short_name\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"short_name\": \"string\"\n        }\n      ],\n      \"refs\": {\n        \"landing_page\": \"https://HoVMBDXqCE.xoAMmWYu8wW1Ylm-JxkVcZN5P37pWiZW\",\n        \"jobs_page\": \"http://CIodieBkUmKwQgNZl.atSei,M0YZtc,UqtpQDFT8IQeMNb,gEg1PLlEuAZEXAgTpWZ\",\n        \"mini_f1_image\": \"http://UMcnV.kqxOaV1KK\",\n        \"f2_image\": \"https://gKnlH.lguJ,nEqkNQzBhorehp+rQexadK44GBhlHuM,XDsg4RhUl,PmEi,\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fe33499-699b-4594-be97-ec090d97c75a",
+              "name": "The request was malformed or a parameter value was invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "descending",
+                      "value": "false"
+                    },
+                    {
+                      "key": "industry",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3017,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7a3cbfb-aa02-4ccf-aa94-d2c0de3c5970",
+              "name": "The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "descending",
+                      "value": "false"
+                    },
+                    {
+                      "key": "industry",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "location",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3017,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "225ceb2c-6920-4c98-a4be-4b0b766fef9c",
+          "name": "Retrieve a single company",
+          "request": {
+            "name": "Retrieve a single company",
+            "description": {
+              "content": "Retrieves a single employer company profile by its numeric ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "companies",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "Optional API key that raises the hourly rate limit."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the company."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d442c81b-89a2-4d16-af67-552ccc94e68e",
+              "name": "The requested company profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the company."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 78,\n  \"name\": \"string\",\n  \"short_name\": \"string\",\n  \"description\": \"string\",\n  \"model_type\": \"string\",\n  \"publication_date\": \"1966-10-08T10:48:23.900Z\",\n  \"twitter\": \"string\",\n  \"size\": {\n    \"name\": \"string\",\n    \"short_name\": \"string\"\n  },\n  \"locations\": [\n    {\n      \"name\": \"string\"\n    },\n    {\n      \"name\": \"string\"\n    }\n  ],\n  \"industries\": [\n    {\n      \"name\": \"string\"\n    },\n    {\n      \"name\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"name\": \"string\",\n      \"short_name\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"short_name\": \"string\"\n    }\n  ],\n  \"refs\": {\n    \"landing_page\": \"http://wawh.gdovuE73Y5lYZa2-4zFILNmedRVcn-OuBqkAiFoal+Nch.U\",\n    \"jobs_page\": \"https://xCoSxTqJbEYBG.xuuX.iYFnNA.n5lmY54zjGn9JB6qUwiV2yLWaJCrnEas8XYMPIzo\",\n    \"mini_f1_image\": \"https://YeLFVtjNcLiWUEQrFEBUlohMpv.mdnOlVPkxVgu9rVL9FzuP0QVs2Y8jP6\",\n    \"f2_image\": \"http://hcYebtzGD.yrN1-GPiv0.duwqUwN5gBbbqqe+NddZURk4B4lYhN.CYdHr\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c172854f-edf4-4f3d-a64e-990ef8a1eb61",
+              "name": "The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the company."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3017,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ffcf425-3cf3-4354-b12c-acbcb6c1a482",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the company."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3017,\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.themuse.com/api/public",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "1f38946f-d01e-4cc1-a4dc-e0fff8df6c45",
+    "name": "The Muse Public Companies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Muse public API (v2) exposes live job openings and employer company profiles over REST. All endpoints return JSON. Authentication is optional: passing an `api_key` query parameter raises the hourly rate limit from 500 (unauthenticated) to 3,600 (registered). List endpoints are paginated with 20 results per page and require a `page` query parameter. The current base URL is https://www.themuse.com/api/public; the legacy host https://api-v2.themuse.com still resolves via redirect. Use of the API requires agreement to the terms at https://www.themuse.com/developers/api/v2/terms.\n\nContact Support:\n Name: The Muse Developer Support\n Email: api@themuse.com",
+      "type": "text/plain"
+    }
+  }
+}

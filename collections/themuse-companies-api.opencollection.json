@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Muse Public Companies API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search employer company profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themuse.com/api/public/companies",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of results to return."
+              },
+              {
+                "name": "descending",
+                "value": "",
+                "type": "query",
+                "description": "Sort results in descending order when true."
+              },
+              {
+                "name": "industry",
+                "value": "",
+                "type": "query",
+                "description": "Filter by industry name, for example \"Financial Services\" or \"Technology\". Repeat the parameter to filter on multiple industries."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Filter by company size. One of \"Small Size\", \"Medium Size\", or \"Large Size\"."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Filter by location, for example \"Charlotte, NC\"."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Optional API key that raises the hourly rate limit."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of employer company profiles. Supports filtering by industry, company size, and location. Returns up to 20 results per page."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.themuse.com/api/public/companies/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The numeric ID of the company."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "Optional API key that raises the hourly rate limit."
+              }
+            ]
+          },
+          "docs": "Retrieves a single employer company profile by its numeric ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
