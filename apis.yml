@@ -8,6 +8,18 @@ description: The Muse is a careers and company-profiles platform that helps peop
   employer company profiles (industry, size, locations, and behind-the-scenes content). An optional api_key
   raises rate limits. This makes The Muse a strong source for "job openings", jobs, careers, and recruiting
   use cases and for building job boards, career sites, and employer-branding integrations.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: unknown
