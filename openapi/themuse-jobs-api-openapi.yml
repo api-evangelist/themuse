@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: The Muse Public Companies Jobs API
-  description: 'The Muse public API (v2) exposes live job openings and employer company profiles over REST. All endpoints return JSON. Authentication is optional: passing an `api_key` query parameter raises the hourly rate limit from 500 (unauthenticated) to 3,600 (registered). List endpoints are paginated with 20 results per page and require a `page` query parameter. The current base URL is https://www.themuse.com/api/public; the legacy host https://api-v2.themuse.com still resolves via redirect. Use of the API requires agreement to the terms at https://www.themuse.com/developers/api/v2/terms.'
+  title: Muse Public Jobs API
+  description: The Muse public API (v2) exposes live job openings and employer company profiles over REST.
   version: '2.0'
   contact:
     name: The Muse Developer Support
@@ -113,46 +113,25 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    NamedValue:
+    JobCompanyRef:
       type: object
-      description: A generic named reference (used for locations and industries).
+      description: The company that posted the job (summary form embedded in a job).
       properties:
-        name:
-          type: string
-    Category:
-      type: object
-      properties:
-        name:
-          type: string
+        id:
+          type: integer
         short_name:
           type: string
-    PagedResponse:
-      type: object
-      properties:
-        page:
-          type: integer
-        page_count:
-          type: integer
-        items_per_page:
-          type: integer
-        total:
-          type: integer
-        took:
-          type: integer
-          description: Server-side query time in milliseconds.
-        timed_out:
-          type: boolean
-        aggregations:
-          type: array
-          items:
-            type: object
-    Tag:
-      type: object
-      properties:
         name:
           type: string
-        short_name:
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code echoed in the body.
+        error:
           type: string
+          description: Human-readable error message.
     Job:
       type: object
       properties:
@@ -195,22 +174,12 @@ components:
           $ref: '#/components/schemas/JobRefs'
         company:
           $ref: '#/components/schemas/JobCompanyRef'
-    Level:
+    Category:
       type: object
       properties:
         name:
           type: string
         short_name:
-          type: string
-    JobCompanyRef:
-      type: object
-      description: The company that posted the job (summary form embedded in a job).
-      properties:
-        id:
-          type: integer
-        short_name:
-          type: string
-        name:
           type: string
     JobsResponse:
       allOf:
@@ -228,15 +197,46 @@ components:
           type: string
           format: uri
           description: Canonical Muse URL for the job posting.
-    Error:
+    Tag:
       type: object
       properties:
-        code:
-          type: integer
-          description: HTTP-style status code echoed in the body.
-        error:
+        name:
           type: string
-          description: Human-readable error message.
+        short_name:
+          type: string
+    PagedResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+        page_count:
+          type: integer
+        items_per_page:
+          type: integer
+        total:
+          type: integer
+        took:
+          type: integer
+          description: Server-side query time in milliseconds.
+        timed_out:
+          type: boolean
+        aggregations:
+          type: array
+          items:
+            type: object
+    NamedValue:
+      type: object
+      description: A generic named reference (used for locations and industries).
+      properties:
+        name:
+          type: string
+    Level:
+      type: object
+      properties:
+        name:
+          type: string
+        short_name:
+          type: string
   parameters:
     ApiKey:
       name: api_key
