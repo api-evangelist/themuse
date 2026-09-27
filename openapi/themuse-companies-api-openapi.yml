@@ -105,6 +105,28 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    CompanyRefs:
+      type: object
+      properties:
+        landing_page:
+          type: string
+          format: uri
+        jobs_page:
+          type: string
+          format: uri
+        mini_f1_image:
+          type: string
+          format: uri
+        f2_image:
+          type: string
+          format: uri
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+        short_name:
+          type: string
     Error:
       type: object
       properties:
@@ -114,21 +136,6 @@ components:
         error:
           type: string
           description: Human-readable error message.
-    NamedValue:
-      type: object
-      description: A generic named reference (used for locations and industries).
-      properties:
-        name:
-          type: string
-    CompaniesResponse:
-      allOf:
-      - $ref: '#/components/schemas/PagedResponse'
-      - type: object
-        properties:
-          results:
-            type: array
-            items:
-              $ref: '#/components/schemas/Company'
     Company:
       type: object
       properties:
@@ -166,35 +173,6 @@ components:
             $ref: '#/components/schemas/Tag'
         refs:
           $ref: '#/components/schemas/CompanyRefs'
-    CompanySize:
-      type: object
-      properties:
-        name:
-          type: string
-        short_name:
-          type: string
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-        short_name:
-          type: string
-    CompanyRefs:
-      type: object
-      properties:
-        landing_page:
-          type: string
-          format: uri
-        jobs_page:
-          type: string
-          format: uri
-        mini_f1_image:
-          type: string
-          format: uri
-        f2_image:
-          type: string
-          format: uri
     PagedResponse:
       type: object
       properties:
@@ -215,23 +193,37 @@ components:
           type: array
           items:
             type: object
-  parameters:
-    ApiKey:
-      name: api_key
-      in: query
-      required: false
-      description: Optional API key that raises the hourly rate limit.
-      schema:
-        type: string
+    CompanySize:
+      type: object
+      properties:
+        name:
+          type: string
+        short_name:
+          type: string
+    NamedValue:
+      type: object
+      description: A generic named reference (used for locations and industries).
+      properties:
+        name:
+          type: string
+    CompaniesResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedResponse'
+      - type: object
+        properties:
+          results:
+            type: array
+            items:
+              $ref: '#/components/schemas/Company'
   responses:
-    RateLimited:
-      description: The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.
+    BadRequest:
+      description: The request was malformed or a parameter value was invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or a parameter value was invalid.
+    RateLimited:
+      description: The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.
       content:
         application/json:
           schema:
@@ -242,6 +234,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ApiKey:
+      name: api_key
+      in: query
+      required: false
+      description: Optional API key that raises the hourly rate limit.
+      schema:
+        type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey
