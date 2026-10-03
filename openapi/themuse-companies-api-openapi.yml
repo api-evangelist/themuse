@@ -105,28 +105,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    CompanyRefs:
-      type: object
-      properties:
-        landing_page:
-          type: string
-          format: uri
-        jobs_page:
-          type: string
-          format: uri
-        mini_f1_image:
-          type: string
-          format: uri
-        f2_image:
-          type: string
-          format: uri
-    Tag:
-      type: object
-      properties:
-        name:
-          type: string
-        short_name:
-          type: string
     Error:
       type: object
       properties:
@@ -136,6 +114,39 @@ components:
         error:
           type: string
           description: Human-readable error message.
+    NamedValue:
+      type: object
+      description: A generic named reference (used for locations and industries).
+      properties:
+        name:
+          type: string
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+        short_name:
+          type: string
+    PagedResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+        page_count:
+          type: integer
+        items_per_page:
+          type: integer
+        total:
+          type: integer
+        took:
+          type: integer
+          description: Server-side query time in milliseconds.
+        timed_out:
+          type: boolean
+        aggregations:
+          type: array
+          items:
+            type: object
     Company:
       type: object
       properties:
@@ -173,39 +184,6 @@ components:
             $ref: '#/components/schemas/Tag'
         refs:
           $ref: '#/components/schemas/CompanyRefs'
-    PagedResponse:
-      type: object
-      properties:
-        page:
-          type: integer
-        page_count:
-          type: integer
-        items_per_page:
-          type: integer
-        total:
-          type: integer
-        took:
-          type: integer
-          description: Server-side query time in milliseconds.
-        timed_out:
-          type: boolean
-        aggregations:
-          type: array
-          items:
-            type: object
-    CompanySize:
-      type: object
-      properties:
-        name:
-          type: string
-        short_name:
-          type: string
-    NamedValue:
-      type: object
-      description: A generic named reference (used for locations and industries).
-      properties:
-        name:
-          type: string
     CompaniesResponse:
       allOf:
       - $ref: '#/components/schemas/PagedResponse'
@@ -215,7 +193,35 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Company'
+    CompanyRefs:
+      type: object
+      properties:
+        landing_page:
+          type: string
+          format: uri
+        jobs_page:
+          type: string
+          format: uri
+        mini_f1_image:
+          type: string
+          format: uri
+        f2_image:
+          type: string
+          format: uri
+    CompanySize:
+      type: object
+      properties:
+        name:
+          type: string
+        short_name:
+          type: string
   responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request was malformed or a parameter value was invalid.
       content:
@@ -224,12 +230,6 @@ components:
             $ref: '#/components/schemas/Error'
     RateLimited:
       description: The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
       content:
         application/json:
           schema:
