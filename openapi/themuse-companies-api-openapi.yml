@@ -105,48 +105,22 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP-style status code echoed in the body.
-        error:
-          type: string
-          description: Human-readable error message.
-    NamedValue:
-      type: object
-      description: A generic named reference (used for locations and industries).
-      properties:
-        name:
-          type: string
-    Tag:
+    CompanySize:
       type: object
       properties:
         name:
           type: string
         short_name:
           type: string
-    PagedResponse:
-      type: object
-      properties:
-        page:
-          type: integer
-        page_count:
-          type: integer
-        items_per_page:
-          type: integer
-        total:
-          type: integer
-        took:
-          type: integer
-          description: Server-side query time in milliseconds.
-        timed_out:
-          type: boolean
-        aggregations:
-          type: array
-          items:
-            type: object
+    CompaniesResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedResponse'
+      - type: object
+        properties:
+          results:
+            type: array
+            items:
+              $ref: '#/components/schemas/Company'
     Company:
       type: object
       properties:
@@ -184,15 +158,12 @@ components:
             $ref: '#/components/schemas/Tag'
         refs:
           $ref: '#/components/schemas/CompanyRefs'
-    CompaniesResponse:
-      allOf:
-      - $ref: '#/components/schemas/PagedResponse'
-      - type: object
-        properties:
-          results:
-            type: array
-            items:
-              $ref: '#/components/schemas/Company'
+    NamedValue:
+      type: object
+      description: A generic named reference (used for locations and industries).
+      properties:
+        name:
+          type: string
     CompanyRefs:
       type: object
       properties:
@@ -208,16 +179,53 @@ components:
         f2_image:
           type: string
           format: uri
-    CompanySize:
+    Tag:
       type: object
       properties:
         name:
           type: string
         short_name:
           type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code echoed in the body.
+        error:
+          type: string
+          description: Human-readable error message.
+    PagedResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+        page_count:
+          type: integer
+        items_per_page:
+          type: integer
+        total:
+          type: integer
+        took:
+          type: integer
+          description: Server-side query time in milliseconds.
+        timed_out:
+          type: boolean
+        aggregations:
+          type: array
+          items:
+            type: object
+  parameters:
+    ApiKey:
+      name: api_key
+      in: query
+      required: false
+      description: Optional API key that raises the hourly rate limit.
+      schema:
+        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    RateLimited:
+      description: The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.
       content:
         application/json:
           schema:
@@ -228,20 +236,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ApiKey:
-      name: api_key
-      in: query
-      required: false
-      description: Optional API key that raises the hourly rate limit.
-      schema:
-        type: string
   securitySchemes:
     apiKeyQuery:
       type: apiKey
