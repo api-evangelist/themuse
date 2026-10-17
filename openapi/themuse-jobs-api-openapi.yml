@@ -112,46 +112,36 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    ApiKey:
-      name: api_key
-      in: query
-      required: false
-      description: Optional API key that raises the hourly rate limit.
-      schema:
-        type: string
-  responses:
-    RateLimited:
-      description: The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or a parameter value was invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Tag:
+    Category:
       type: object
       properties:
         name:
           type: string
         short_name:
           type: string
-    NamedValue:
+    Error:
       type: object
-      description: A generic named reference (used for locations and industries).
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code echoed in the body.
+        error:
+          type: string
+          description: Human-readable error message.
+    JobRefs:
+      type: object
+      properties:
+        landing_page:
+          type: string
+          format: uri
+          description: Canonical Muse URL for the job posting.
+    Tag:
+      type: object
       properties:
         name:
+          type: string
+        short_name:
           type: string
     PagedResponse:
       type: object
@@ -173,22 +163,16 @@ components:
           type: array
           items:
             type: object
-    Category:
+    JobCompanyRef:
       type: object
+      description: The company that posted the job (summary form embedded in a job).
       properties:
-        name:
-          type: string
+        id:
+          type: integer
         short_name:
           type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP-style status code echoed in the body.
-        error:
+        name:
           type: string
-          description: Human-readable error message.
     Level:
       type: object
       properties:
@@ -196,6 +180,15 @@ components:
           type: string
         short_name:
           type: string
+    JobsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedResponse'
+      - type: object
+        properties:
+          results:
+            type: array
+            items:
+              $ref: '#/components/schemas/Job'
     Job:
       type: object
       properties:
@@ -238,32 +231,39 @@ components:
           $ref: '#/components/schemas/JobRefs'
         company:
           $ref: '#/components/schemas/JobCompanyRef'
-    JobsResponse:
-      allOf:
-      - $ref: '#/components/schemas/PagedResponse'
-      - type: object
-        properties:
-          results:
-            type: array
-            items:
-              $ref: '#/components/schemas/Job'
-    JobCompanyRef:
+    NamedValue:
       type: object
-      description: The company that posted the job (summary form embedded in a job).
+      description: A generic named reference (used for locations and industries).
       properties:
-        id:
-          type: integer
-        short_name:
-          type: string
         name:
           type: string
-    JobRefs:
-      type: object
-      properties:
-        landing_page:
-          type: string
-          format: uri
-          description: Canonical Muse URL for the job posting.
+  parameters:
+    ApiKey:
+      name: api_key
+      in: query
+      required: false
+      description: Optional API key that raises the hourly rate limit.
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: The rate limit for the current window has been exceeded. Inspect the X-RateLimit-Remaining, X-RateLimit-Limit, and X-RateLimit-Reset response headers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or a parameter value was invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyQuery:
       type: apiKey
